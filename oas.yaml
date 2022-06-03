@@ -1,0 +1,124 @@
+openapi: 3.1.0
+info:
+  title: Verwerkingsregister
+  version: '1.0'
+  summary: De api levert een verwerkings register conform een draft standaard van de Gemeente Rotterdam
+  contact:
+    name: Ruben van der Linde
+    email: info@conduction.nl
+    url: www.conduction.nl
+  license:
+    name: EUPL 1.0
+servers:
+  - url: 'http://localhost:3000'
+    description: Ruben van der Linde
+paths:
+  '/verwerkingen/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    $ref: '#/components/schemas/Verwerkingsactiviteit'
+      operationId: get-verwerkingen-id
+    put:
+      summary: ''
+      operationId: put-verwerkingen-id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Verwerkingsactiviteit'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Verwerkingsactiviteit'
+  /verwerkingen:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type:
+                      - string
+                      - array
+                    items:
+                      $ref: '#/components/schemas/Verwerkingsactiviteit'
+      operationId: get-verwerkingen
+    post:
+      summary: ''
+      operationId: post-verwerkingen
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Verwerkingsactiviteit'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Verwerkingsactiviteit'
+components:
+  schemas:
+    Verwerkingsactiviteit:
+      title: Verwerkingsactiviteit
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: Register burgerlijke stand + Huwelijksdossiers
+        naam:
+          type: string
+        verantwoordelijkeOrganisatie:
+          type: string
+        verantwoordelijkBestuursorgaan:
+          type: string
+        doel:
+          type: string
+        grondslag:
+          type:
+            - string
+            - array
+          items:
+            type: string
+            example: 'bw, besluit burgelijke stand'
+        toelichtingGrondslag:
+          type: string
+        bewaarTermijn:
+          type: string
+        herkomstGegevens:
+          type: string
+        categorienPersoonsgegevens:
+          type:
+            - string
+            - array
+          items:
+            type: string
+        categorienOntvangers:
+          type: string
